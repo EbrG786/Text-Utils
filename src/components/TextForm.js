@@ -6,16 +6,19 @@ export default function TextForm(props) {
         //console.log('Upper case was clicked'+text);
         let newText = text.toUpperCase();
         setText(newText);
+        props.showAlert('Converted to upper case','success')
   }
   const handelLowClick = () =>{
     //console.log('Upper case was clicked'+text);
     let newText = text.toLowerCase();
     setText(newText);
+    props.showAlert('Converted to lower case','success')
   }
   const clearText = () =>{
     //console.log('Upper case was clicked'+text);
     let newText = "";
     setText(newText);
+    props.showAlert('Text cleared','success')
   }
   const handelOnChange = (event) =>{
     //console.log('On change');
@@ -25,9 +28,10 @@ export default function TextForm(props) {
     var text = document.getElementById('myBox');
     text.select();
     navigator.clipboard.writeText(text.value);
+    props.showAlert('Text Copied','success')
   }
   return (
-            <div className="mb-3" style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
+            <div className="mb-3" style={{ color: props.mode === 'dark' ? 'white' : 'grey' }}>
             <h2>{props.heading}</h2>
             <div className="mb-3">
             <textarea className="form-control" value={text} onChange={handelOnChange} style={{ backgroundColor: props.mode === 'dark' ? '#042743' : 'white', color: props.mode === 'dark' ? 'white' : 'black' }} id="myBox" rows="8"></textarea>
@@ -37,9 +41,9 @@ export default function TextForm(props) {
             <button className="btn btn-primary mx-1" onClick={clearText}>Clear Text</button>
             <button className="btn btn-primary mx-1" onClick={handelCopy}>Copy Text</button>
 
-            <div className="container my-3" style={{ color: props.mode === 'dark' ? 'white' : 'black' }}>
+            <div className="container my-3" style={{ color: props.mode === 'dark' ? 'white' : 'grey' }}>
             <h2>Your Text Summary</h2>
-            <p>{text.split(" ").length} Words & {text.length} characters</p>
+            <p>{text.split(" ").filter(w => w !== "").length} words and {text.length} characters</p>
             <p>{ 0.008 * text.split(" ").length } Minutes read</p>
             <h3>Preview</h3>
             <p>{text.length>0?text:'Enter Text here to Preview'}</p>
